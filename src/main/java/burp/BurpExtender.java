@@ -32,8 +32,11 @@ public class BurpExtender implements IBurpExtender, IContextMenuFactory {
         List<JMenuItem> jMenuItemList = new LinkedList<>();
 
         // リクエスト表示
+        // コンテキストに表示するテキスト
         JMenuItem requestJMenuItem = new JMenuItem("[New Menu] Show Request : " + httpRequestResponseArray.length);
+        // 右クリック時の動作を設定
         requestJMenuItem.addMouseListener(new RequestContextMenu(this.iBurpExtenderCallbacks, httpRequestResponseArray));
+        // コンテキストを追加
         jMenuItemList.add(requestJMenuItem);
 
         // レスポンス表示

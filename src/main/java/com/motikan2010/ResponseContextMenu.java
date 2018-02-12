@@ -2,6 +2,7 @@ package com.motikan2010;
 
 import burp.IBurpExtenderCallbacks;
 import burp.IHttpRequestResponse;
+import com.motikan2010.util.RequestResponseUtils;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -12,25 +13,28 @@ public class ResponseContextMenu implements MouseListener {
     private IBurpExtenderCallbacks iBurpExtenderCallbacks;
     private IHttpRequestResponse[] iHttpRequestResponseArray;
 
-    private RequestResponse requestResponse;
+    private RequestResponseUtils requestResponseUtils;
 
     public ResponseContextMenu(IBurpExtenderCallbacks callbacks, IHttpRequestResponse[] requestResponseArray) {
         this.iBurpExtenderCallbacks = callbacks;
         this.iHttpRequestResponseArray = requestResponseArray;
-        this.requestResponse = new RequestResponse(callbacks);
+        this.requestResponseUtils = new RequestResponseUtils(callbacks);
     }
 
     /**
      * マウスボタンを離すと呼び出される
      *
-     * @param e イベント
+     * @param event イベント
      */
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mouseReleased(MouseEvent event) {
         PrintWriter stdout = new PrintWriter(iBurpExtenderCallbacks.getStdout(), true);
         for (IHttpRequestResponse iHttpRequestResponse : this.iHttpRequestResponseArray) {
-            String requestString = requestResponse.showResponse(iHttpRequestResponse);
-            stdout.println(requestString);
+            // レスポンスの取得
+            String requestStr = requestResponseUtils.showResponse(iHttpRequestResponse);
+
+            // レスポンスの出力
+            stdout.println(requestStr);
         }
     }
 
