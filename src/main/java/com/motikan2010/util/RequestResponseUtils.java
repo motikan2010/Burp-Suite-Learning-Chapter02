@@ -26,10 +26,11 @@ public class RequestResponseUtils {
     public String showRequest(IHttpRequestResponse iHttpRequestResponse) {
         StringBuilder stringBuilder = new StringBuilder();
 
+        // リクエスト情報を取得
         IRequestInfo iRequestInfo = iExtensionHelpers.analyzeRequest(iHttpRequestResponse);
 
         // リクエストヘッダ情報を取得
-        List<String> headers =iRequestInfo.getHeaders();
+        List<String> headers = iRequestInfo.getHeaders();
         stringBuilder.append(this.createHeaderRaw(headers));
 
         // リクエストボディ情報を取得
@@ -48,6 +49,7 @@ public class RequestResponseUtils {
     public String showResponse(IHttpRequestResponse iHttpRequestResponse) {
         StringBuilder stringBuilder = new StringBuilder();
 
+        // レスポンス情報を取得
         IResponseInfo iResponseInfo = iExtensionHelpers.analyzeResponse(iHttpRequestResponse.getResponse());
 
         // レスポンスヘッダ情報を取得
